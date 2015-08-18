@@ -5,7 +5,7 @@
 
 import sys
 import requests  # Request快速上手： http://cn.python-requests.org/zh_CN/latest/user/quickstart.html 本页内容为如何入门Requests提供了很好的指引。
-import json
+# import json
 
 '''
 版本：1.1，请求方式：get，编码方式：utf-8
@@ -51,7 +51,7 @@ def getContent(url):
         sys.exit()
     else:
         page.encoding = 'utf-8'
-        return page.text
+        return page.json()
 
 
 def printResult(content):
@@ -63,7 +63,6 @@ def printResult(content):
         50 :'无效的key',
         60 :'无词典结果，仅在获取词典结果生效'
     }
-    content = json.loads(content, encoding='utf-8')
     errorCode = content['errorCode']
     if errorCode != 0:
         print(errorCodedict[errorCode], 'see more on: http://fanyi.youdao.com/openapi?path=data-mode')
@@ -121,7 +120,6 @@ if __name__ == '__main__':
 
     printResult(content)
     # print(content)
-
 
 
 
