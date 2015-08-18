@@ -51,9 +51,7 @@ def getContent(url):
         sys.exit()
     else:
         page.encoding = 'utf-8'
-        content = json.loads(page.text, encoding='utf-8')
-        # print(content, type(content))
-        return content
+        return page.text
 
 
 def printResult(content):
@@ -65,7 +63,7 @@ def printResult(content):
         50 :'无效的key',
         60 :'无词典结果，仅在获取词典结果生效'
     }
-
+    content = json.loads(content, encoding='utf-8')
     errorCode = content['errorCode']
     if errorCode != 0:
         print(errorCodedict[errorCode], 'see more on: http://fanyi.youdao.com/openapi?path=data-mode')
