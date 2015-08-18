@@ -38,12 +38,23 @@ def getContent(url):
         'Accept-Encoding': 'gzip, deflate'
     }
 
-    page = requests.get(url, headers=headers)
-    assert page.status_code != '200'
-    page.encoding = 'utf8'
-    content = json.loads(page.text, encoding='utf-8')
-    # print(content, type(content))
-    return content
+    try:
+        page = requests.get(url, headers=headers)
+    # 错误与异常
+    # 遇到网络问题（如：DNS查询失败、拒绝连接等）时，Requests会抛出一个 ConnectionError 异常。
+    # 遇到罕见的无效HTTP响应时，Requests则会抛出一个 HTTPError 异常。
+    # 若请求超时，则抛出一个 Timeout 异常。
+    # 若请求超过了设定的最大重定向次数，则会抛出一个 TooManyRedirects 异常。
+    # 所有Requests显式抛出的异常都继承自 requests.exceptions.RequestException 。
+    except requests.exceptions.RequestException:
+        print('网络异常.')
+        sys.exit()
+    else:
+        page.encoding = 'utf-8'
+        content = json.loads(page.text, encoding='utf-8')
+        # print(content, type(content))
+        return content
+
 
 def printResult(content):
     errorCodedict = {
@@ -79,7 +90,7 @@ def printResult(content):
         if 'us-phonetic' in content['basic']:
             print('美式发音: ', content['basic']['us-phonetic'])
         if 'explains' in content['basic']:
-            print('基本词典: ', end='')
+            print('基本释义: ', end='')
             for item in content['basic']['explains']:
                 print(item, end='\n\t  ')
     print()
