@@ -57,11 +57,11 @@ def getContent(url):
 def printResult(content):
     errorCodedict = {
         0: '正常',
-        20 :'要翻译的文本过长',
-        30 :'无法进行有效的翻译',
+        20: '要翻译的文本过长',
+        30: '无法进行有效的翻译',
         40: '不支持的语言类型',
-        50 :'无效的key',
-        60 :'无词典结果，仅在获取词典结果生效'
+        50: '无效的key',
+        60: '无词典结果，仅在获取词典结果生效'
     }
     errorCode = content['errorCode']
     if errorCode != 0:
@@ -71,7 +71,7 @@ def printResult(content):
     if 'translation' in content:
         for item in content['translation']:
             print(item, end='  ')
-    print()
+        print()
 
     # "basic":{
     # "us-phonetic":"host",
@@ -90,7 +90,7 @@ def printResult(content):
             print('基本释义: ', end='')
             for item in content['basic']['explains']:
                 print(item, end='\n\t  ')
-    print()
+        print()
 
     # "web":[
     #     {"value":["宿主","主机","主持人"],"key":"host"},
@@ -104,9 +104,9 @@ def printResult(content):
             for item2 in item['value']:
                 print(item2, end=' ')
             print(end='\n\t  ')
-    print()
+        print()
 
-    print('*******************************************************')
+    print('**********************************************************************************************************')
 
 
 if __name__ == '__main__':
