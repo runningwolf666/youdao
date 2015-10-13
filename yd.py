@@ -106,19 +106,23 @@ def printResult(content):
             print(end='\n\t  ')
         print()
 
-    print('**********************************************************************************************************')
+    print('***********************************************************************')
 
 
 if __name__ == '__main__':
     url_youdaoapi = 'http://fanyi.youdao.com/openapi.do?keyfrom=bbbb666bbbb&key=1846765962&type=data&doctype=json&version=1.1&q='
+    # 翻译句子
     if sys.argv[1] == '-':
         content = getContent(url_youdaoapi + ' '.join(sys.argv[2:])) # sys.argv[2:] is a list, not str
+        printResult(content)
+    # 翻译单词
     else:
         for item in sys.argv[1:]:
             item = processInput(item)
             content = getContent(url_youdaoapi + item)
+            printResult(content)
 
-    printResult(content)
+    # printResult(content)
     # print(content)
 
 
